@@ -57,7 +57,7 @@ def get_empty_html():
   """
   return block_template
 
-def get_block_html(title:str, authors:str, rate:str,arxiv_id:str, abstract:str, pdf_url:str, code_url:str=None, affiliations:str=None, date:str=None,comment:str=None):
+def get_block_html(title:str, authors:str, rate:str,arxiv_id:str, abstract:str, pdf_url:str, code_url:str=None, affiliations:str=None, date:str=None,comment:str=None,abs_url:str=None):
     code = f'<a href="{code_url}" style="display: inline-block; text-decoration: none; font-size: 14px; font-weight: bold; color: #fff; background-color: #5bc0de; padding: 8px 16px; border-radius: 4px; margin-left: 8px;">Code</a>' if code_url else ''
     if comment:
         block_template = """
@@ -81,9 +81,10 @@ def get_block_html(title:str, authors:str, rate:str,arxiv_id:str, abstract:str, 
         </tr>
         <tr>
             <td style="font-size: 14px; color: #333; padding: 8px 0;">
-                <strong>arXiv ID:</strong> {arxiv_id}
+                <strong>arXiv:</strong> {abs_url}
             </td>
         </tr>
+
         <tr>
             <td style="font-size: 14px; color: #333; padding: 8px 0;">
                 <strong>TLDR:</strong> {abstract}
@@ -126,7 +127,7 @@ def get_block_html(title:str, authors:str, rate:str,arxiv_id:str, abstract:str, 
         </tr>
         <tr>
             <td style="font-size: 14px; color: #333; padding: 8px 0;">
-                <strong>arXiv ID:</strong> {arxiv_id}
+                <strong>arXiv:</strong> {abs_url}
             </td>
         </tr>
         <tr>

@@ -64,67 +64,14 @@ def get_arxiv_paper(query: str, debug: bool = False, max_results: int = 30) -> l
     # 创建 arxiv 搜索引擎实例
     search_engine = arxiv.Search(
         query=query,
-        max_results=20,
+        max_results=max_results,
         sort_by=arxiv.SortCriterion.SubmittedDate
     )
-    
-    # 如果调试模式开启
-    if debug:
-        logger.debug("Retrieve a limited number of arxiv papers.")
-        papers = []
-        for result in search_engine.results():
-            paper_id = result.get_short_id()
-            paper_title = result.title
-            paper_url = result.entry_id
-            paper_abstract = result.summary.replace("\n", " ")
-            paper_authors = get_authors(result.authors)
-            paper_first_author = get_authors(result.authors, first_author=True)
-            primary_category = result.primary_category
-            publish_time = result.published.date()
-            
-            # 打印一些论文信息，方便调试
-            logger.debug(f"Time = {publish_time} | Title = {paper_title} | Author = {paper_first_author}")
-            
-            # 处理 arXiv ID，去除版本号
-            ver_pos = paper_id.find('v')
-            if ver_pos == -1:
-                paper_key = paper_id
-            else:
-                paper_key = paper_id[0:ver_pos]
-            
-            # 将论文封装成 ArxivPaper 对象
-            paper = ArxivPaper(result)
-            papers.append(paper)
-
-            # 只取前 5 篇论文（根据 debug 模式）
-            if len(papers) == 5:
-                break
-    else:
-        # 非调试模式，获取最多 100 篇论文
-        papers = []
-        for result in search_engine.results():
-            paper_id = result.get_short_id()
-            paper_title = result.title
-            paper_url = result.entry_id
-            paper_abstract = result.summary.replace("\n", " ")
-            paper_authors = get_authors(result.authors)
-            paper_first_author = get_authors(result.authors, first_author=True)
-            primary_category = result.primary_category
-            publish_time = result.published.date()
-            
-            # 打印论文信息
-            logger.debug(f"Time = {publish_time} | Title = {paper_title} | Author = {paper_first_author}")
-            
-            # 处理 arXiv ID，去除版本号
-            ver_pos = paper_id.find('v')
-            if ver_pos == -1:
-                paper_key = paper_id
-            else:
-                paper_key = paper_id[0:ver_pos]
-            
-            # 将论文封装成 ArxivPaper 对象
-            paper = ArxivPaper(result)
-            papers.append(paper)
+    papers = []
+    for result in search_engine.results():
+        # 将论文封装成 ArxivPaper 对象
+        paper = ArxivPaper(result)
+        papers.append(paper)
         
     return papers
 
@@ -217,7 +164,6 @@ if __name__ == '__main__':
         corpus = filter_corpus(corpus, args.zotero_ignore)
         logger.info(f"Remaining {len(corpus)} papers after filtering.")
     logger.info("Retrieving Arxiv papers...")
-    args.max_paper_num = 20
     papers = get_arxiv_paper(args.arxiv_query, args.debug,max_results=args.max_paper_num)
     if len(papers) == 0:
         logger.info("No new papers found. Yesterday maybe a holiday and no one submit their work :). If this is not the case, please check the ARXIV_QUERY.")

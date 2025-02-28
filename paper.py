@@ -21,7 +21,9 @@ class ArxivPaper:
     @property
     def title(self) -> str:
         return self._paper.title
-    
+    @property
+    def abs_url(self) -> str:
+        return str(self._paper.links[0])
     @property
     def comment(self) -> str:
         return self._paper.comment
