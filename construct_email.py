@@ -104,7 +104,7 @@ def get_block_html(title:str, authors:str, rate:str,arxiv_id:str, abstract:str, 
         </tr>
     </table>
     """
-        return block_template.format(title=title, authors=authors,arxiv_id=arxiv_id, abstract=abstract, pdf_url=pdf_url, code=code, affiliations=affiliations, date=date, comment=comment)
+        return block_template.format(title=title, authors=authors,abs_url=abs_url, abstract=abstract, pdf_url=pdf_url, code=code, affiliations=affiliations, date=date, comment=comment)
     else:
         block_template = """
         <table border="0" cellpadding="0" cellspacing="0" width="100%" style="font-family: Arial, sans-serif; border: 1px solid #ddd; border-radius: 8px; padding: 16px; background-color: #f9f9f9;">
@@ -145,7 +145,7 @@ def get_block_html(title:str, authors:str, rate:str,arxiv_id:str, abstract:str, 
     </table>
     """
         # return block_template.format(title=title, authors=authors,rate=rate,arxiv_id=arxiv_id, abstract=abstract, pdf_url=pdf_url, code=code, affiliations=affiliations, date=date)
-        return block_template.format(title=title, authors=authors,arxiv_id=arxiv_id, abstract=abstract, pdf_url=pdf_url, code=code, affiliations=affiliations, date=date)
+        return block_template.format(title=title, authors=authors,abs_url=abs_url, abstract=abstract, pdf_url=pdf_url, code=code, affiliations=affiliations, date=date)
 def get_stars(score:float):
     full_star = '<span class="full-star">⭐</span>'
     half_star = '<span class="half-star">⭐</span>'
