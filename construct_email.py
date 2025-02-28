@@ -7,7 +7,7 @@ from email.utils import parseaddr, formataddr
 import smtplib
 import datetime
 from loguru import logger
-
+import json
 framework = """
 <!DOCTYPE HTML>
 <html>
@@ -144,9 +144,11 @@ def send_email(sender:str, receiver:str, password:str,smtp_server:str,smtp_port:
         name, addr = parseaddr(s)
         return formataddr((Header(name, 'utf-8').encode(), addr))
 
+    receivers = json.loads(receiver)
     msg = MIMEText(html, 'html', 'utf-8')
     msg['From'] = _format_addr('Github Action <%s>' % sender)
-    msg['To'] = _format_addr('You <%s>' % receiver)
+    # msg['To'] = _format_addr('You <%s>' % receiver)
+    msg['To'] = ', '.join([_format_addr(f'You <%s>' % receiver) for receiver in receivers])
     today = datetime.datetime.now().strftime('%Y/%m/%d')
     msg['Subject'] = Header(f'Daily arXiv {today}', 'utf-8').encode()
 
@@ -159,5 +161,5 @@ def send_email(sender:str, receiver:str, password:str,smtp_server:str,smtp_port:
         server = smtplib.SMTP_SSL(smtp_server, smtp_port)
 
     server.login(sender, password)
-    server.sendmail(sender, [receiver], msg.as_string())
+    server.sendmail(sender, receivers, msg.as_string())
     server.quit()
