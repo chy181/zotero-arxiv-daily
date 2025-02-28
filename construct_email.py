@@ -143,12 +143,12 @@ def send_email(sender:str, receiver:str, password:str,smtp_server:str,smtp_port:
     def _format_addr(s):
         name, addr = parseaddr(s)
         return formataddr((Header(name, 'utf-8').encode(), addr))
-
+    print(receiver)
     receivers = json.loads(receiver)
     msg = MIMEText(html, 'html', 'utf-8')
     msg['From'] = _format_addr('Github Action <%s>' % sender)
     # msg['To'] = _format_addr('You <%s>' % receiver)
-    msg['To'] = ', '.join([_format_addr(f'You <%s>' % receiver) for receiver in receivers])
+    msg['To'] = ', '.join([_format_addr(f'<%s>' % receiver) for receiver in receivers])
     today = datetime.datetime.now().strftime('%Y/%m/%d')
     msg['Subject'] = Header(f'Daily arXiv {today}', 'utf-8').encode()
 
