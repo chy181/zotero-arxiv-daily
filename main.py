@@ -60,7 +60,7 @@ def sort_papers(papers):
         output[key] = papers[key]
     return output    
 
-def get_arxiv_paper(query: str, debug: bool = False, max_results: int = 100) -> list[ArxivPaper]:
+def get_arxiv_paper(query: str, debug: bool = False, max_results: int = 15) -> list[ArxivPaper]:
     # 创建 arxiv 搜索引擎实例
     search_engine = arxiv.Search(
         query=query,
