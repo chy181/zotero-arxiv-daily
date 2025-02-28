@@ -167,7 +167,7 @@ def render_email(papers:list[ArxivPaper]):
     if len(papers) == 0 :
         return framework.replace('__CONTENT__', get_empty_html())
     
-    papers = sorted(papers, key=lambda p: datetime.datetime.strptime(p.date, '%Y-%m-%d'), reverse=True)
+    papers = sorted(papers, key=lambda p: p.date, reverse=True)
     for p in tqdm(papers,desc='Rendering Email'):
         rate = get_stars(p.score)
         authors = [a.name for a in p.authors[:5]]
