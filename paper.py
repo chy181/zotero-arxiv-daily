@@ -23,6 +23,10 @@ class ArxivPaper:
         return self._paper.title
     
     @property
+    def date(self) -> str:
+        return self._paper.published.date()
+    
+    @property
     def summary(self) -> str:
         return self._paper.summary
     
