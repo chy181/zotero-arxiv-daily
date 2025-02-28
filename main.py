@@ -64,7 +64,7 @@ def get_arxiv_paper(query: str, debug: bool = False, max_results: int = 30) -> l
     # 创建 arxiv 搜索引擎实例
     search_engine = arxiv.Search(
         query=query,
-        max_results=max_results,
+        max_results=20,
         sort_by=arxiv.SortCriterion.SubmittedDate
     )
     
@@ -217,6 +217,7 @@ if __name__ == '__main__':
         corpus = filter_corpus(corpus, args.zotero_ignore)
         logger.info(f"Remaining {len(corpus)} papers after filtering.")
     logger.info("Retrieving Arxiv papers...")
+    args.max_paper_num = 20
     papers = get_arxiv_paper(args.arxiv_query, args.debug,max_results=args.max_paper_num)
     if len(papers) == 0:
         logger.info("No new papers found. Yesterday maybe a holiday and no one submit their work :). If this is not the case, please check the ARXIV_QUERY.")
