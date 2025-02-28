@@ -144,6 +144,7 @@ def send_email(sender:str, receiver:str, password:str,smtp_server:str,smtp_port:
         name, addr = parseaddr(s)
         return formataddr((Header(name, 'utf-8').encode(), addr))
     print(receiver)
+    logger.warning(f"receiver")
     receivers = json.loads(receiver)
     msg = MIMEText(html, 'html', 'utf-8')
     msg['From'] = _format_addr('Github Action <%s>' % sender)
