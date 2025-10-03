@@ -183,6 +183,6 @@ if __name__ == '__main__':
 
     html = render_email(papers)
     logger.info("Sending email...")
-    send_email(args.sender, json.dupms(['hycheng@stu.ecnu.edu.cn','xjwu@stu.ecnu.edu.cn','xfqiu@stu.ecnu.edu.cn','1463250073@qq.com')], args.sender_password, args.smtp_server, args.smtp_port, html)
+    send_email(args.sender, json.dupms(['hycheng@stu.ecnu.edu.cn','xjwu@stu.ecnu.edu.cn','xfqiu@stu.ecnu.edu.cn','1463250073@qq.com']), args.sender_password, args.smtp_server, args.smtp_port, html)
     logger.success("Email sent successfully! If you don't receive the email, please check the configuration and the junk box.")
 
